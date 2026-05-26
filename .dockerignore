@@ -1,0 +1,34 @@
+# Fly.io build 時排除這些檔案，加速部署
+.venv/
+venv/
+__pycache__/
+*.pyc
+.git/
+.github/
+.streamlit/secrets.toml
+.DS_Store
+
+# 大型素材（爬蟲產出，部署不需要）
+tpex_ic_crawl/html/
+tpex_ic_crawl/output/companies.json
+tpex_ic_crawl/產業鏈網站素材/原始HTML_產業鏈/
+tpex_ic_crawl/產業鏈網站素材/原始HTML_政府政策/
+tpex_ic_crawl/產業鏈網站素材/結構化資料/companies.json
+
+# 解壓的 DB（用 .gz 上去，container 內部解）
+data/market.db
+data/market.db-wal
+data/market.db-shm
+
+# logs
+logs/
+
+# 文件不需要 build 進去
+docs/
+README.md
+PRD.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
