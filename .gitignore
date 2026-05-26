@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+.env
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+
+# 資料庫：本機原始檔不上傳（用 .gz 壓縮版上傳，啟動時解壓）
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/*.db-journal
+!data/market.db.gz
+
+# 大型素材（爬蟲產出，本機保留即可）
+tpex_ic_crawl/html/
+tpex_ic_crawl/output/companies.json
+tpex_ic_crawl/產業鏈網站素材/原始HTML_產業鏈/
+tpex_ic_crawl/產業鏈網站素材/原始HTML_政府政策/
+tpex_ic_crawl/產業鏈網站素材/結構化資料/companies.json
+
+# Streamlit
+.streamlit/secrets.toml
+
+# logs
+logs/
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+*.swp

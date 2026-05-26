@@ -1,0 +1,33 @@
+[project]
+name = "market-radar"
+version = "0.1.0"
+description = "Global sector rotation & breakout detection dashboard (TW MVP)"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "requests>=2.32",
+    "lxml>=5.2",
+    "beautifulsoup4>=4.12",
+    "pyyaml>=6.0",
+    "python-dateutil>=2.9",
+    "tenacity>=8.3",
+    "FinMind>=1.7",
+    "yfinance>=0.2.40",
+    "plotly>=5.22",
+    "streamlit>=1.36",
+    "fastapi>=0.111",
+    "uvicorn>=0.30",
+    "apscheduler>=3.10",
+    "rich>=13.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.2", "ruff>=0.5"]
+
+[tool.setuptools]
+packages = ["config", "connectors", "connectors.tw", "db", "compute", "scripts"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

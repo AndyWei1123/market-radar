@@ -1,0 +1,9 @@
+# ⚠️ DEPRECATED v0.3 — 此檔不再使用
+#
+# 概念股清單已遷移到：
+#   config/taxonomy/tw/themes.yaml
+#
+# 維護方式與格式請見：config/taxonomy/README.md
+#
+# 此檔保留為空殼以避免舊 import 路徑壞掉，內容請勿在此編輯。
+themes: []

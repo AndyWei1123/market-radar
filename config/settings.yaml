@@ -1,0 +1,78 @@
+# Market Radar 系統設定
+
+# ─── 資料庫 ─────────────────────────────────────────────
+database:
+  path: data/market.db
+
+# ─── 資料抓取 ───────────────────────────────────────────
+ingestion:
+  # 預設回溯天數（首次初始化用），UI 可即時切換更長區間
+  initial_lookback_days: 365
+
+  # 盤中 / 盤後切換邏輯
+  # 台股盤後資料約 14:30 之後才完整，這個 cutoff 之前抓「昨日收盤」
+  tw_market:
+    timezone: "Asia/Taipei"
+    close_cutoff: "15:00"          # 15:00 之前抓資料 → 用前一交易日
+    trading_days:                   # 週一到週五
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+
+  # API rate limit（避免被擋）
+  rate_limit:
+    requests_per_minute: 30
+    backoff_seconds: 3
+
+# ─── 起漲偵測規則（依 PRD §4） ────────────────────────────
+breakout_rules:
+  index_weighting: "market_cap"    # market_cap / equal
+  fallback_equal_if_members_below: 5
+
+  conditions:
+    c1_above_ma20: true
+    c2_ma20_slope_positive: true
+    c3_rs_20d_high: true            # RS 突破 20 日新高
+    c4_pct_above_ma20_threshold: 0.5  # 成分股 >50% 站上 20MA
+    c5_5d_return_min: 0.03          # 5 日漲幅 ≥ 3%
+
+  # 達成 C1+C2+C3 → candidate
+  # 全部達成     → rising
+  status_thresholds:
+    candidate_min_conditions: 3
+    rising_min_conditions: 5
+
+# ─── 大盤基準（RS 計算） ──────────────────────────────────
+benchmarks:
+  TW: TWII                          # 加權指數
+  US: SPX
+  JP: N225
+  HK: HSI
+
+# ─── 新聞抓取 ───────────────────────────────────────────
+news:
+  sources:
+    - cnyes        # 鉅亨網
+    - moneydj
+    - udn_money    # 經濟日報
+    - yahoo_tw
+    - mops         # 公開資訊觀測站
+  frequency: "post_close"           # post_close / hourly（Phase 2）
+
+# ─── 推播（保留，Phase 2 啟用） ───────────────────────────
+notifications:
+  enabled: false
+  channels: []                      # 之後可加 'telegram' / 'line'
+  telegram:
+    bot_token: ""
+    chat_id: ""
+  line:
+    channel_access_token: ""
+    user_id: ""
+
+# ─── 日誌 ──────────────────────────────────────────────
+logging:
+  level: INFO
+  file: logs/market_radar.log

@@ -1,0 +1,374 @@
+# 主題股 / 概念股清單（v0.2 擴充版）
+#
+# 格式：
+#   - id: 唯一 ID（英數）
+#     name: 顯示名稱
+#     market_scope: TW / US / GLOBAL
+#     source: manual / moneydj
+#     members:
+#       TW: [stock_id, ...]
+#       US: [ticker, ...]
+#
+# 注意：未列出於 DB 的成員會被略過並記入 logs/missing_stocks.log
+
+themes:
+  # ──────── AI 半導體鏈 ────────
+  - id: ai_server
+    name: AI 伺服器
+    market_scope: GLOBAL
+    source: manual
+    members:
+      TW: ["2330", "2317", "2382", "3231", "3017", "6669", "2376", "2308", "5269", "2354"]
+      US: ["NVDA", "DELL", "SMCI", "HPE", "ANET"]
+
+  - id: cowos
+    name: CoWoS 先進封裝
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2330", "3661", "6147", "3034", "3017", "6515", "3189"]
+
+  - id: hbm
+    name: HBM 高頻寬記憶體
+    market_scope: GLOBAL
+    source: manual
+    members:
+      TW: ["2330", "5269", "6515", "3661"]
+      US: ["MU"]
+
+  - id: asic
+    name: ASIC
+    market_scope: GLOBAL
+    source: manual
+    members:
+      TW: ["3035", "6515", "3661", "5269", "3443"]
+      US: ["AVGO", "MRVL"]
+
+  - id: silicon_photonics
+    name: 矽光子
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2330", "3556", "3450", "2455", "8086"]
+
+  - id: ic_design
+    name: IC 設計
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2454", "3034", "3443", "3035", "5347", "8016", "6526", "3014", "6643", "8081"]
+
+  - id: ic_packaging_test
+    name: IC 封測
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2311", "2325", "2329", "2363", "3711", "6147", "6271", "5234"]
+
+  - id: silicon_ip
+    name: 矽智財
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["3035", "3529", "6643"]
+
+  # ──────── PCB / 載板 / 散熱 ────────
+  - id: pcb
+    name: PCB
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["3037", "3189", "8046", "6213", "2316", "2367", "2383", "2491", "5469", "6285", "8358"]
+
+  - id: abf_substrate
+    name: ABF 載板
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["3037", "6147", "8046"]
+
+  - id: hsb_pcb
+    name: 高速通訊 PCB
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["3037", "8046", "6213", "2383", "6285"]
+
+  - id: heat_dissipation
+    name: 散熱 / 液冷
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["3017", "3324", "3653", "6230", "3023", "3479", "8210", "1597"]
+
+  # ──────── 被動 / 連接器 ────────
+  - id: passive_components
+    name: 被動元件
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2327", "2375", "6285", "2491", "2456", "9933"]
+
+  - id: connector
+    name: 連接器
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2308", "3023", "2456", "3017", "2392"]
+
+  # ──────── 重電 / 軍工 / 太空 ────────
+  - id: heavy_electric
+    name: 重電 / 變壓器
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["1503", "1504", "1513", "1514", "1515", "1519", "1521", "9941"]
+
+  - id: defense
+    name: 軍工 / 國防
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2634", "2641", "5340", "5392", "1597", "2390", "2606", "2643"]
+
+  - id: leo_satellite
+    name: 低軌衛星
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2419", "2345", "3211", "6285", "3380", "3508", "2349", "2395"]
+
+  - id: drone
+    name: 無人機
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2374", "5471", "5536", "3373", "6770"]
+
+  - id: space_aerospace
+    name: 太空 / 航太
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2634", "2641", "5471", "2349", "3211"]
+
+  # ──────── 機器人 / 自動化 ────────
+  - id: robotics
+    name: 機器人 / 自動化
+    market_scope: GLOBAL
+    source: manual
+    members:
+      TW: ["1590", "4533", "3293", "2049", "2308", "3552"]
+      US: ["TER", "ISRG"]
+
+  - id: machine_tools
+    name: 工具機
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["1597", "4533", "1515", "1503", "2049"]
+
+  # ──────── 電動車 / 儲能 / 綠能 ────────
+  - id: ev_supply_chain
+    name: 電動車鏈
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2308", "2376", "2231", "1536", "2207", "1513", "3413", "6213", "2353"]
+
+  - id: ev_battery
+    name: 電池 / 儲能
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["1722", "1605", "3675", "1503", "6121", "6285", "5536"]
+
+  - id: ev_charging
+    name: 充電樁
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["3308", "1597", "3526", "3008"]
+
+  - id: solar
+    name: 太陽能
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["3576", "6164", "3691", "1722", "2363"]
+
+  - id: wind
+    name: 風電
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["1515", "1503", "1519", "1513", "2376", "6505"]
+
+  - id: hydrogen
+    name: 氫能
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["1326", "1722", "1503"]
+
+  # ──────── 生技醫療 ────────
+  - id: biotech_cdmo
+    name: CDMO
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["6446", "1795", "4737", "4174", "4127", "1762"]
+
+  - id: weight_loss_drug
+    name: GLP-1 減肥藥
+    market_scope: GLOBAL
+    source: manual
+    members:
+      TW: ["6446", "4736", "4133", "1795"]
+      US: ["LLY", "NVO"]
+
+  - id: ai_drug
+    name: AI 製藥
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["6446", "6612", "1795"]
+
+  - id: medical_device
+    name: 醫療器材
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["4163", "6452", "4126", "4736"]
+
+  # ──────── AI 終端應用 ────────
+  - id: ai_pc
+    name: AI PC
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2353", "2382", "2376", "2356", "3231", "3017", "2308"]
+
+  - id: ai_phone
+    name: AI 手機
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2454", "2317", "2356", "2392", "2474"]
+
+  - id: edge_ai
+    name: 邊緣 AI
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2454", "3035", "8086", "6643", "5347"]
+
+  - id: gen_ai_app
+    name: 生成式 AI 應用
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["3034", "2454", "6669", "3231"]
+
+  # ──────── 通訊 / 網通 ────────
+  - id: comm_5g
+    name: 5G
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2412", "3045", "4904", "2345", "4906", "6285", "3380"]
+
+  - id: wifi7
+    name: WiFi 7
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2454", "2345", "3380", "3596", "6285"]
+
+  - id: optical_communication
+    name: 光通訊
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["3491", "3105", "8163", "3450"]
+
+  # ──────── 地緣經濟主題 ────────
+  - id: india_play
+    name: 印度收成
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2330", "2317", "6285", "2474", "1101", "1102", "9904", "2823"]
+
+  - id: asean_play
+    name: 東協收成
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["9904", "2823", "2207", "1101", "1102", "1303"]
+
+  - id: us_reshore
+    name: 美國回流 / 製造業
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2330", "2317", "2308", "2382", "3008", "9904"]
+
+  - id: china_consumer
+    name: 中國收成
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2882", "2891", "2912", "9904", "2105"]
+
+  # ──────── 消費 / 內需 ────────
+  - id: tourism
+    name: 觀光 / 旅遊
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2727", "2705", "2723", "5871", "6889", "2618"]
+
+  - id: shipping_marine
+    name: 航運 - 貨櫃 / 散裝
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2603", "2609", "2615", "2606", "2637", "5608", "2618"]
+
+  - id: tw_real_estate
+    name: 不動產 / 營建
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2545", "2548", "2542", "2597", "5511"]
+
+  - id: financial_high_yield
+    name: 金融高股息
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2882", "2891", "2880", "2884", "2885", "2886", "2887"]
+
+  # ──────── 元宇宙 / VR ────────
+  - id: metaverse_vr
+    name: 元宇宙 / VR / Vision Pro
+    market_scope: GLOBAL
+    source: manual
+    members:
+      TW: ["2317", "3017", "2392", "2454", "3008", "6669"]
+      US: ["META", "AAPL"]
+
+  # ──────── ETF / 高股息 ────────
+  - id: hi_dividend_etf
+    name: 高股息 ETF 成分股
+    market_scope: TW
+    source: manual
+    members:
+      TW: ["2330", "2317", "2454", "2308", "2412", "2882", "2891", "1101", "1216", "2603"]
+
+# ─── 重要備註 ───────────────────────────────────────────
+# 1. 概念股清單為動態 — 第一次跑完後可透過 W4-5 (MoneyDJ 半自動同步)
+#    補完 / 修正成員。
+# 2. members 中不存在於 stocks 表的代號會被自動略過，並記入
+#    logs/missing_stocks.log，方便逐步修補。

@@ -1,0 +1,202 @@
+# 供應鏈清單（v0.2 擴充版）
+# 每條供應鏈 anchor 一個錨股，members 為其上下游 / 代工夥伴 / 關鍵零組件供應商
+
+chains:
+  # ──── 美國科技巨頭 ────
+  - id: nvda_chain
+    name: 輝達鏈 (NVDA)
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: NVDA}
+    members:
+      TW: ["2330", "3231", "2382", "3017", "6669", "2376", "2308", "5269", "3661", "3037", "8046", "3034", "6147"]
+      US: ["NVDA"]
+
+  - id: apple_chain
+    name: 蘋果鏈 (AAPL)
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: AAPL}
+    members:
+      TW: ["2330", "2317", "2354", "2474", "3008", "3037", "2392", "4938", "2356", "3673", "2382", "3289", "2308"]
+      US: ["AAPL"]
+
+  - id: tesla_chain
+    name: 特斯拉鏈 (TSLA)
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: TSLA}
+    members:
+      TW: ["2330", "2308", "2376", "1536", "2231", "3169", "2228", "6121", "2362"]
+      US: ["TSLA"]
+
+  - id: meta_chain
+    name: Meta 鏈 (META)
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: META}
+    members:
+      TW: ["2330", "2382", "3231", "3017", "2376", "8046"]
+      US: ["META"]
+
+  - id: amd_chain
+    name: AMD 鏈
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: AMD}
+    members:
+      TW: ["2330", "3661", "2382", "3017", "8046", "3037"]
+      US: ["AMD"]
+
+  - id: google_chain
+    name: Google / Alphabet 鏈
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: GOOGL}
+    members:
+      TW: ["2330", "2317", "2382", "3017", "6669", "3231"]
+      US: ["GOOGL"]
+
+  - id: microsoft_chain
+    name: Microsoft 鏈
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: MSFT}
+    members:
+      TW: ["2330", "2317", "2382", "3017", "6669", "2356"]
+      US: ["MSFT"]
+
+  - id: amazon_chain
+    name: Amazon / AWS 鏈
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: AMZN}
+    members:
+      TW: ["2330", "2382", "3231", "3017", "6669", "2356"]
+      US: ["AMZN"]
+
+  - id: spacex_chain
+    name: SpaceX / Starlink 鏈
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: SPACEX_UNLISTED}
+    members:
+      TW: ["2345", "2419", "3211", "6285", "3380", "3508", "2349"]
+      US: []
+
+  - id: intel_chain
+    name: Intel 鏈
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: INTC}
+    members:
+      TW: ["2330", "3037", "8046", "3034", "3017", "2353"]
+      US: ["INTC"]
+
+  - id: asml_chain
+    name: ASML 鏈
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: ASML}
+    members:
+      TW: ["2330", "3661", "6147", "6271", "8081"]
+      US: ["ASML"]
+
+  - id: micron_chain
+    name: Micron 鏈
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: MU}
+    members:
+      TW: ["2330", "5269", "6515", "3661"]
+      US: ["MU"]
+
+  - id: openai_chain
+    name: OpenAI 受惠
+    market_scope: GLOBAL
+    anchor: {market: US, stock_id: OPENAI_UNLISTED}
+    members:
+      TW: ["2330", "2382", "3231", "3017", "6669", "5269"]
+      US: ["MSFT", "NVDA"]
+
+  # ──── 台灣龍頭鏈 ────
+  - id: tsmc_chain
+    name: 台積電鏈 (2330)
+    market_scope: TW
+    anchor: {market: TW, stock_id: "2330"}
+    members:
+      TW: ["2330", "3661", "6147", "3037", "8046", "6271", "5234", "8081", "3034", "5269", "6515"]
+
+  - id: mediatek_chain
+    name: 聯發科鏈 (2454)
+    market_scope: TW
+    anchor: {market: TW, stock_id: "2454"}
+    members:
+      TW: ["2454", "2330", "3034", "3443", "3035", "6526", "2345", "8016"]
+
+  - id: foxconn_chain
+    name: 鴻海鏈 (2317)
+    market_scope: TW
+    anchor: {market: TW, stock_id: "2317"}
+    members:
+      TW: ["2317", "2354", "2392", "4938", "6121", "2382", "3017", "2356"]
+
+  - id: quanta_chain
+    name: 廣達鏈 (2382)
+    market_scope: TW
+    anchor: {market: TW, stock_id: "2382"}
+    members:
+      TW: ["2382", "2330", "3017", "2376", "3231", "2356", "8046"]
+
+  - id: wistron_chain
+    name: 緯創鏈 (3231)
+    market_scope: TW
+    anchor: {market: TW, stock_id: "3231"}
+    members:
+      TW: ["3231", "2330", "3017", "2382", "6669", "8046"]
+
+  - id: inventec_chain
+    name: 英業達鏈 (2356)
+    market_scope: TW
+    anchor: {market: TW, stock_id: "2356"}
+    members:
+      TW: ["2356", "2317", "2382", "3017", "8046"]
+
+  - id: asus_chain
+    name: 華碩鏈 (2357)
+    market_scope: TW
+    anchor: {market: TW, stock_id: "2357"}
+    members:
+      TW: ["2357", "2330", "2382", "3017", "2454", "3008"]
+
+  - id: pegatron_chain
+    name: 和碩鏈 (4938)
+    market_scope: TW
+    anchor: {market: TW, stock_id: "4938"}
+    members:
+      TW: ["4938", "2330", "2392", "3017", "2356", "2382"]
+
+  - id: largan_chain
+    name: 大立光鏈 (3008)
+    market_scope: TW
+    anchor: {market: TW, stock_id: "3008"}
+    members:
+      TW: ["3008", "3406", "2392", "2474"]
+
+  # ──── 日韓巨頭 ────
+  - id: nintendo_chain
+    name: Nintendo 鏈
+    market_scope: GLOBAL
+    anchor: {market: JP, stock_id: 7974.T}
+    members:
+      TW: ["2330", "3017", "2382", "2376", "3231"]
+      US: []
+
+  - id: sony_chain
+    name: Sony 鏈
+    market_scope: GLOBAL
+    anchor: {market: JP, stock_id: 6758.T}
+    members:
+      TW: ["2330", "3008", "3017", "2382", "2356"]
+      US: []
+
+  - id: samsung_chain
+    name: Samsung 鏈
+    market_scope: GLOBAL
+    anchor: {market: KR, stock_id: 005930.KS}
+    members:
+      TW: ["2330", "3661", "8046", "3037"]
+      US: []
+
+# ─── 重要備註 ───────────────────────────────────────────
+# 1. 供應鏈成員以「公開報導 + 法說 + 產業共識」為基礎，會隨業界訊息變動。
+# 2. anchor.stock_id 用於未來「跨市場連動」功能 — 點 NVDA 走勢可看到台廠鏈的同步表現。
+# 3. members 中不存在於 stocks 表的代號會被自動略過。

@@ -1,0 +1,7 @@
+# ⚠️ DEPRECATED v0.3 — 此檔不再使用
+#
+# 供應鏈清單已遷移到：
+#   config/taxonomy/tw/chains.yaml
+#
+# 維護方式與格式請見：config/taxonomy/README.md
+chains: []
