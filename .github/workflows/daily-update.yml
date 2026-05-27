@@ -1,12 +1,18 @@
 name: 每日資料更新
 
-# 排程：台北 16:00 (UTC 08:00)，週一到週五，台股收盤後 30 分鐘
-# Cron 語法：分 時 日 月 週幾
-# 也可以手動觸發（Actions tab → Run workflow）
+# 觸發來源：
+#   ① cron-job.org POST /workflows/.../dispatches  ── 主要觸發者（準時）
+#   ② Actions tab 右上 Run workflow  ── 手動觸發
+#
+# 註：GitHub 內建 cron 已停用，原因是免費 runner 高峰期會延遲 1~2 小時。
+#     cron-job.org 免費版準時到分鐘。
 on:
-  schedule:
-    - cron: "0 8 * * 1-5"
-  workflow_dispatch:        # 允許手動點擊執行
+  workflow_dispatch:        # 允許 API / UI 觸發
+    inputs:
+      reason:
+        description: '觸發原因 (選填)'
+        required: false
+        default: 'cron-job.org scheduled'
 
 # 給 workflow 寫入 repo 的權限（commit 新的 DB 回 main）
 permissions:
