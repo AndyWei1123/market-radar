@@ -7,12 +7,7 @@ name: 每日資料更新
 # 註：GitHub 內建 cron 已停用，原因是免費 runner 高峰期會延遲 1~2 小時。
 #     cron-job.org 免費版準時到分鐘。
 on:
-  workflow_dispatch:        # 允許 API / UI 觸發
-    inputs:
-      reason:
-        description: '觸發原因 (選填)'
-        required: false
-        default: 'cron-job.org scheduled'
+  workflow_dispatch:        # 允許 API / UI 觸發（不接受任何 input）
 
 # 給 workflow 寫入 repo 的權限（commit 新的 DB 回 main）
 permissions:
