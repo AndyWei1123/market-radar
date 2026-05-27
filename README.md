@@ -86,16 +86,28 @@ DB 以 `data/market.db.gz`（27MB）儲存於 repo，App 啟動時由 `bootstrap
 
 ## 每日資料更新
 
+### 🤖 自動模式（推薦）
+
+`.github/workflows/daily-update.yml` 每天台北 16:00（UTC 08:00）自動跑：
+1. 抓今日股價（yfinance）
+2. 抓三大法人 / 融資（若 GitHub IP 沒被擋）
+3. 重算族群指標
+4. 重壓 `data/market.db.gz`
+5. Commit + push 回 main → Streamlit Cloud 自動重部署
+
+可以隨時到 GitHub repo → **Actions** tab → **每日資料更新** → **Run workflow** 手動觸發。
+
+### 🛠️ 手動模式
+
 ```bash
 python -m scripts.ingest_daily --incremental
 python -m scripts.compute_themes
-gzip -9 -k -f data/market.db                # 重壓
-git add data/market.db.gz && git commit -m "daily data $(date +%Y-%m-%d)" && git push
-# Streamlit Cloud 偵測到 push 後 1~2 分鐘自動重部署
+gzip -9 -k -f data/market.db
+git add data/market.db.gz && git commit -m "data: $(date +%F)" && git push
 ```
 
 ## 文件
 
-- [`docs/TAXONOMY.md`](docs/TAXONOMY.md) — 四軸分類體系完整規範（含資料清洗、跨市場擴充）
-- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) — Cloudflare + Streamlit Cloud 部署指南
+- [`docs/TAXONOMY.md`](docs/TAXONOMY.md) — 四軸分類體系完整規範
+- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) — Streamlit Cloud 部署 + 每日自動更新設定
 - [`tpex_ic_crawl/產業鏈網站素材/README.md`](tpex_ic_crawl/產業鏈網站素材/README.md) — TPEx 爬蟲資料說明

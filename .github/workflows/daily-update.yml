@@ -1,0 +1,118 @@
+name: 每日資料更新
+
+# 排程：台北 16:00 (UTC 08:00)，週一到週五，台股收盤後 30 分鐘
+# Cron 語法：分 時 日 月 週幾
+# 也可以手動觸發（Actions tab → Run workflow）
+on:
+  schedule:
+    - cron: "0 8 * * 1-5"
+  workflow_dispatch:        # 允許手動點擊執行
+
+# 給 workflow 寫入 repo 的權限（commit 新的 DB 回 main）
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      # ─── 取得 repo ───
+      - name: 取得最新 repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # ─── 設定 Python ───
+      - name: 設定 Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: 安裝相依套件
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # ─── 解壓現有 DB ───
+      - name: 解壓 data/market.db.gz
+        run: |
+          python bootstrap_db.py
+          ls -lh data/market.db
+
+      # ─── 抓今日股價（必跑）───
+      - name: 抓取今日股價
+        env:
+          PYTHONPATH: .
+        run: |
+          python -m scripts.ingest_daily --incremental --skip-flow --skip-news
+        continue-on-error: true   # 部分股票失敗不擋整體流程
+
+      # ─── 抓三大法人 / 融資（可能因 GitHub IP 被擋而失敗，失敗也繼續）───
+      - name: 抓取法人 / 融資資料（可能失敗）
+        env:
+          PYTHONPATH: .
+        run: |
+          python -m scripts.ingest_flow || echo "⚠️ 法人/融資抓取失敗（GitHub IP 可能被擋）"
+        continue-on-error: true
+
+      # ─── 抓新聞 ───
+      - name: 抓取新聞
+        env:
+          PYTHONPATH: .
+        run: |
+          python -m scripts.ingest_news || echo "⚠️ 新聞抓取失敗"
+        continue-on-error: true
+
+      # ─── 重算族群指標 ───
+      - name: 重算族群指數 / RS / 起漲狀態
+        env:
+          PYTHONPATH: .
+        run: |
+          python -m scripts.compute_themes
+
+      # ─── 重壓 DB ───
+      - name: 壓縮 DB
+        run: |
+          gzip -9 -k -f data/market.db
+          echo "壓縮後大小："
+          ls -lh data/market.db.gz
+
+      # ─── Commit 新 DB 回 repo ───
+      - name: 提交更新
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/market.db.gz
+          # 若沒變化就跳過 commit（例如今天是假日沒新資料）
+          if git diff --cached --quiet; then
+            echo "ℹ️ 沒有資料變動，跳過 commit"
+          else
+            git commit -m "data: 自動更新 $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+            echo "✅ 已 push 新資料"
+          fi
+
+      # ─── 摘要報告（在 Actions UI 看得到）───
+      - name: 摘要
+        if: always()
+        run: |
+          echo "## 📊 今日更新摘要" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- 時間（UTC）：$(date -u +'%Y-%m-%d %H:%M')" >> $GITHUB_STEP_SUMMARY
+          echo "- 時間（台北）：$(TZ='Asia/Taipei' date +'%Y-%m-%d %H:%M')" >> $GITHUB_STEP_SUMMARY
+          echo "- DB 大小：$(ls -lh data/market.db.gz | awk '{print $5}')" >> $GITHUB_STEP_SUMMARY
+          if [ -f data/market.db ]; then
+            python3 -c "
+          import sqlite3
+          con = sqlite3.connect('data/market.db')
+          latest = con.execute('SELECT MAX(date) FROM theme_daily_metrics').fetchone()[0]
+          themes = con.execute('SELECT COUNT(*) FROM themes').fetchone()[0]
+          stocks = con.execute('SELECT COUNT(*) FROM stocks').fetchone()[0]
+          print(f'- 最新指標日期：{latest}')
+          print(f'- 族群數：{themes}')
+          print(f'- 股票數：{stocks}')
+          " >> $GITHUB_STEP_SUMMARY
+          fi
